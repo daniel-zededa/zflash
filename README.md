@@ -1,157 +1,69 @@
-# The ZFlash Tool
+# ZFlash: Zededa's All-in-One Flash Tool for Seamless EVE-OS Deployment
 
-The ZFlash tool it's a project forked from the Raspberry Pi Imager that has
-as its main goal to provide an easy way to choose, fetch and flash EVE-OS
-images to removable devices.
-
-The ZFlash tool is provided to community by Zededa Inc.
+ZFlash is a user-friendly tool for flashing EVE-OS images to your devices. It simplifies the process of downloading, verifying, and flashing EVE-OS, getting you up and running in minutes. ZFlash is a fork of the popular Raspberry Pi Imager, tailored for the EVE-OS community. In addition, it can be used for general image flashing for use-cases beyond EVE-OS. 
 
 
-# Raspberry Pi Imager
+![ZFlash Main Screen](./doc/imgs/zflash-main.png)
 
-Raspberry Pi Imaging Utility
+## Features
 
-- To install on Raspberry Pi OS, use `sudo apt update && sudo apt install rpi-imager`.
-- Download the latest version for Windows, macOS and Ubuntu from the [Raspberry Pi downloads page](https://www.raspberrypi.com/software/).
+* **Effortless Image Selection**: Easily choose EVE-OS LTS images directly from our official GitHub repository.
+* **Automatic Downloads & Verification**: ZFlash handles the entire process of downloading and verifying your selected image, ensuring integrity and saving you time.
+* **Flexible Flashing Options**: Flash various image files from your local machine, providing versatile ways to manage your EVE-OS images.
 
-## How to use Raspberry Pi Imager
+---
 
-Please see our [official documentation](https://www.raspberrypi.com/documentation/computers/getting-started.html#raspberry-pi-imager).
+## Getting Started
 
-## Contributing
+### Installation
 
-### Linux
+ZFlash is available for **Windows**, **macOS**, and **Linux**. You can download the latest binaries from our [GitHub Releases page](https://github.com/zededa/zflash/releases).
 
-#### Get dependencies
 
-- Install the build dependencies (Debian used as an example):
+> #### Note for macOS and Windows Users
+> The macOS and Windows applications are not currently signed. This means you will need to accept security exceptions when installing and running the application for the first time.
 
-```sh
-sudo apt install --no-install-recommends build-essential cmake git libgnutls28-dev
-```
 
-#### Get the source
+## How to Use
 
-```sh
-git clone --depth 1 https://github.com/raspberrypi/rpi-imager
-```
+1.  **Choose an Operating System**:
+    * Click on **CHOOSE OS**.
+    * You can select from the list of available EVE-OS LTS images.
+    * Alternatively, you can choose 'Use custom' to select a custom image file from your computer. ZFlash supports both uncompressed disk images and several compressed formats:
 
-#### Build Qt
+    | File Extension | Type                | Description                                                                    |
+    | :------------- | :------------------ | :----------------------------------------------------------------------------- |
+    | `*.raw`        | Disk Image          | A raw, bit-for-bit copy of a disk.                                             |
+    | `*.img`        | Disk Image          | Essentially the same as `.raw`, a common extension for disk images.            |
+    | `*.wic`        | Disk Image          | A disk image format from the Yocto Project, common in embedded systems.        |
+    | `*.zip`        | Compressed Archive  | Standard ZIP archive format.                                                   |
+    | `*.gz`         | Compressed Archive  | Standard Gzip single-file compression format.                                  |
+    | `*.xz`         | Compressed Archive  | A single-file compression format offering high compression ratios.             |
+    | `*.zst`        | Compressed Archive  | A modern, fast single-file compression format with high compression ratios.    |
 
-```sh
-sudo ./build-qt.sh
-```
 
-This will build and install the version of Qt preferred for Raspberry Pi Imager into /opt/Qt/<version>. You must use `sudo` for the installation step to complete.
+2.  **Choose Storage**:
+    * Click on **CHOOSE STORAGE**.
+    * Select the USB drive or SD card you want to flash the image to.
 
-#### Build the AppImage
+3.  **Write the Image**:
+    * Click on **NEXT** to start the flashing process.
+    * ZFlash will handle the download (if you selected an EVE-OS image), verification, and flashing.
 
-```sh
-./create_appimage.sh
-./Raspberry_Pi_Imager-*.AppImage
-```
+---
 
-### Windows
+## Connecting to a Different ZEDEDA Cluster
 
-#### Get dependencies
+By default, the EVE-OS images downloaded by ZFlash are configured to connect to the `zedcloud.zededa.net` cluster. If you need to connect to a different cluster, you can do so using the text-based UI on the EVE node itself. This requires a keyboard and monitor connected to the EVE device.
 
-- Get the Qt online installer from: https://www.qt.io/download-open-source
-  - During installation, choose Qt 6.9 with Mingw64 64-bit toolchain.
-- For building the installer, install Inno Setup scriptable install system: https://jrsoftware.org/isdl.php
-- Install Visual Studio Code (or a derivative) and the Qt Extension Pack.
-- It is assumed you already have a valid code signing certificate, and the Windows 10 Kit (SDK) installed.
+---
 
-#### Building
+## For Developers
 
-Building Raspberry Pi Imager on Windows is best done with Visual Studio Code (or a derivative).
+For information on how to build ZFlash from source, and other developer-related documentation, please see our [DEVELOPER.md](DEVELOPER.md) file.
 
-- Open Visual Studio Code, and select 'Clone repo'. Give it the git url of this project.
-- Open the CMake plugin settings, and set the following Configure Args:
-  - `-DQt6_ROOT=C:\Qt\6.9.0\mingw_64` - or the equivalent path you installed Qt 6.9 to.
-  - `-DMINGW64_ROOT=C:\Qt\Tools\mingw1310_64` - or the equivalent path you installed mingw64 to.
-  - `-DENABLE_INNO_INSTALLER=ON` - to enable the Inno Setup installer, rather than the legacy NSIS installer.
-  - `-DIMAGER_SIGNED_APP=ON` - to enable code signing for redistribution.
-- In the CMake plugin tab, ensure you have selected the `MinSizeRel` variant if you intend to distribute to others.
-- In the CMake plugin tab, select the 'inno_installer' target, and build it
-- Your resultant installer will be located in `%WORKSPACE%\build\installer`
+---
 
-### macOS
+## License
 
-#### Get dependencies
-
-- Get the Qt online installer from: https://www.qt.io/download-open-source
-  - During installation, choose Qt 6.9.
-- Install Visual Studio Code (or a derivative), and the Qt Extension Pack.
-- It is assumed you have an Apple developer subscription, and already have a "Developer ID" code signing certificate for distribution outside the Mac Store.
-
-#### Building
-
-Building Raspberry Pi Imager on Windows is best done with Visual Studio Code (or a derivative).
-
-- Open Visual Studio Code, and select 'Clone repo'. Give it the git url of this project.
-- Open the CMake plugin settings, and set the following Configure Args:
-  - `-DQt6_ROOT=/opt/Qt6/6.9.0/gcc_arm64` - or the equivalent path you installed Qt 6.9 to.
-  - `-DIMAGER_SIGNED_APP=ON` - to enable code signing.
-  - `-DIMAGER_SIGNING_IDENTITY=$cn` - to specify the Developer ID Certificate Common Name.
-  - `-DIMAGER_NOTARIZE_APP=ON` - to enable automatic notarization for distribution to others.
-  - `-DIMAGER_NOTARIZE_KEYCHAIN_PROFILE=notarytool-password` - specify the name of the keychain item containing your Apple ID credentials for notarizing.
-- In the CMake plugin tab, ensure you have selected the `MinSizeRel` variant if you intend to distribute to others.
-- In the CMake plugin tab, select the 'rpi_imager' target, and build it
-- Your resultant DMG will be located at `$WORKSPACE\build\Raspberry Pi Imager-$VERSION.dmg`
-
-### Linux embedded (netboot) build
-
-The embedded build runs under a minimalistic Linux distribution compiled by buildroot.
-To build:
-
-- You must be running a Linux system, and have the buildroot dependencies installed as listed in the buildroot manual: https://buildroot.org/downloads/manual/manual.html#requirement
-- Run:
-
-```sh
-cd rpi-imager/embedded
-./build.sh
-```
-
-The result will be in the "output" directory.
-The files can be copied to a FAT32 formatted SD card, and inserted in a Pi for testing.
-If you would like to build a (signed) netboot image there are tools for that at: https://github.com/raspberrypi/usbboot/tree/master/tools
-
-## Other notes
-
-### Custom repository
-
-If the application is started with "--repo [your own URL]" it will use a custom image repository.
-So can simply create another 'start menu shortcut' to the application with that parameter to use the application with your own images.
-
-### Telemetry
-
-In order to understand usage of the application (e.g. uptake of Raspberry Pi Imager versions and which images and operating systems are most popular) when using the default image repository, the URL, operating system name and category (if present) of a selected image are sent along with the running version of Raspberry Pi Imager, your operating system, CPU architecture, locale and Raspberry Pi revision (if applicable) to https://rpi-imager-stats.raspberrypi.com by downloadstatstelemetry.cpp.
-
-This web service is hosted by [Heroku](https://www.heroku.com) and only stores an incrementing counter using a [Redis Sorted Set](https://redis.io/topics/data-types#sorted-sets) for each URL, operating system name and category per day in the `eu-west-1` region and does not associate any personal data with those counts. This allows us to query the number of downloads over time and nothing else.
-
-The last 1,500 requests to the service are logged for one week before expiring as this is the [minimum log retention period for Heroku](https://devcenter.heroku.com/articles/logging#log-history-limits).
-
-On Windows, you can opt out of telemetry by disabling it in the Registry:
-
-```pwsh
-reg add "HKCU\Software\Raspberry Pi\Imager" /v telemetry /t REG_DWORD /d 0
-```
-
-On Linux, run `rpi-imager --disable-telemetry` or add the following to `~/.config/Raspberry Pi/Imager.conf`:
-
-```ini
-[General]
-telemetry=false
-```
-
-On macOS, disable it by editing the property list for the application:
-
-```sh
-defaults write org.raspberrypi.Imager.plist telemetry -bool NO
-```
-
-### License
-
-The main code of the Imaging Utility is made available under the terms of the Apache license.
-See license.txt and files in "src/dependencies" folder for more information about the various open source licenses that apply to the third-party dependencies used such as Qt, libarchive, drivelist, mountutils and libcurl.
-For the embedded (netboot) build see also "embedded/legal-info" for more information about the extra system software included in that.
+This project is licensed under the Apache License 2.0 - see the [LICENSE](license.txt) file for details.
