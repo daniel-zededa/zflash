@@ -1,6 +1,6 @@
 # ZFlash: ZEDEDA's All-in-One Flash Tool for Seamless EVE-OS Deployment
 
-ZFlash is a user-friendly tool for flashing EVE-OS images to your devices. It simplifies the process of downloading, verifying, and flashing EVE-OS, getting you up and running in minutes. ZFlash is a fork of the popular Raspberry Pi Imager, tailored for the EVE-OS community. In addition, it can be used for general image flashing for use-cases beyond EVE-OS. 
+ZFlash is a user-friendly tool for flashing EVE-OS images to your devices. It simplifies the process of downloading, verifying, and flashing EVE-OS, getting you up and running in minutes. ZFlash is a fork of the popular Raspberry Pi Imager, tailored for the EVE-OS community. In addition, it can be used for general image flashing for use-cases beyond EVE-OS.
 
 
 ![ZFlash Main Screen](./doc/imgs/zflash-main.png)
@@ -43,20 +43,22 @@ ZFlash is available for **Windows**, **macOS**, and **Linux**. You can download 
 
 ## Connecting to a Different ZEDEDA Cluster
 
-The EVE-OS images downloaded by ZFlash directly, are configured to connect to the `zedcloud.zededa.net` cluster. If you need to connect to a different cluster, you can do so using the text-based UI on the EVE node itself. This requires a keyboard and monitor connected to the EVE device. 
+The EVE-OS images downloaded by ZFlash directly, are configured to connect to the `zedcloud.zededa.net` cluster. If you need to connect to a different cluster, you can do so using the text-based UI on the EVE node itself. This requires a keyboard and monitor connected to the EVE device.
 
 Alternatively, generate an image locally through the EVE-OS docker container tooling. A typical example:
 
 ```
 mkdir eve-overrides
 echo "zedcloud.zededa.net" > eve-overrides/server
+
 # Linux/MacOS:
 docker run --rm -v $PWD/eve-overrides:/in --platform=linux/amd64 lfedge/eve:14.5.1-lts -f raw installer_raw > installer.raw
+
 # Windows:
 docker run --rm -v $PWD/eve-overrides:/in --platform=linux/amd64 lfedge/eve:14.5.1-lts -f raw installer_raw
 ```
 
-Configure the cluster (server) address as appropriate and use Zflash to burn the generated image to a bootable medium. 
+Configure the cluster (server) address as appropriate and use Zflash to burn the generated image to a bootable medium.
 
 ---
 
