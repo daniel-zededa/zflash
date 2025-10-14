@@ -55,7 +55,7 @@ echo "zedcloud.zededa.net" > eve-overrides/server
 docker run --rm -v $PWD/eve-overrides:/in --platform=linux/amd64 lfedge/eve:14.5.1-lts -f raw installer_raw > installer.raw
 
 # Windows:
-docker run --rm -v $PWD/eve-overrides:/in --platform=linux/amd64 lfedge/eve:14.5.1-lts -f raw installer_raw
+docker run -v$HOME/eve-overrides:/in -v $HOME/eve-iso:/out lfedge/eve:14.5.1-lts-kvm-amd64 installer_raw
 ```
 
 Configure the cluster (server) address as appropriate and use Zflash to burn the generated image to a bootable medium.
