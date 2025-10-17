@@ -991,8 +991,8 @@
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="656"/>
-        <source>Select a custom .img from your computer</source>
-        <translation>Použiť vlastný súbor img. na Vašom počítači</translation>
+        <source>Select a custom image from your computer</source>
+        <translation>Použiť vlastný obraz z Vášho počítača</translation>
     </message>
     <message>
         <source>Connect an USB stick containing images first.&lt;br&gt;The images must be located in the root folder of the USB stick.</source>

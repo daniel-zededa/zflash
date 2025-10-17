@@ -783,8 +783,8 @@
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="604"/>
-        <source>Select a custom .img from your computer</source>
-        <translation>მორგებული .img ფაილის არჩევა თქვენი კომპიუტერიდან</translation>
+        <source>Select a custom image from your computer</source>
+        <translation>მორგებული გამოსახულების ფაილის არჩევა თქვენი კომპიუტერიდან</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1712"/>

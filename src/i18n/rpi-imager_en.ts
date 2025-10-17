@@ -787,7 +787,7 @@
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="656"/>
-        <source>Select a custom .img from your computer</source>
+        <source>Select a custom image from your computer</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

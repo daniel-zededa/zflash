@@ -911,8 +911,8 @@
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="656"/>
-        <source>Select a custom .img from your computer</source>
-        <translation>选择本地已有的 .img 文件</translation>
+        <source>Select a custom image from your computer</source>
+        <translation>从您的电脑中选择一个自定义的镜像文件</translation>
     </message>
     <message>
         <source>Connect an USB stick containing images first.&lt;br&gt;The images must be located in the root folder of the USB stick.</source>

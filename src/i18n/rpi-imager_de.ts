@@ -996,8 +996,8 @@
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="656"/>
-        <source>Select a custom .img from your computer</source>
-        <translation>Wählen Sie eine eigene .img-Datei von Ihrem Computer</translation>
+        <source>Select a custom image from your computer</source>
+        <translation>Wählen Sie eine eigene Image-Datei von Ihrem Computer</translation>
     </message>
     <message>
         <source>Connect an USB stick containing images first.&lt;br&gt;The images must be located in the root folder of the USB stick.</source>

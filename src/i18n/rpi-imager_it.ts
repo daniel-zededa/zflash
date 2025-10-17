@@ -105,7 +105,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="671"/>
         <source>Controlled Folder Access seems to be enabled. Please add both zflash.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation>Sembra sia abilitato l&apos;accesso controllato alle cartelle. 
+        <translation>Sembra sia abilitato l&apos;accesso controllato alle cartelle.
 Aggiungi sia &apos;zflash.exe&apos; che &apos;fat32format.exe&apos; all&apos;elenco delle app consentite e riprova.</translation>
     </message>
     <message>
@@ -780,8 +780,8 @@ Aggiungi sia &apos;zflash.exe&apos; che &apos;fat32format.exe&apos; all&apos;ele
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="656"/>
-        <source>Select a custom .img from your computer</source>
-        <translation>Seleziona un file immagine .img personalizzato</translation>
+        <source>Select a custom image from your computer</source>
+        <translation>Seleziona un file immagine personalizzato</translation>
     </message>
 </context>
 </TS>
