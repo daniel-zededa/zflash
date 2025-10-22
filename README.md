@@ -1,13 +1,13 @@
 # ZFlash: ZEDEDA's All-in-One Flash Tool for Seamless EVE-OS Deployment
 
-ZFlash is a user-friendly tool for flashing EVE-OS images to your devices. It simplifies the process of downloading, verifying, and flashing EVE-OS, getting you up and running in minutes. ZFlash is a fork of the popular Raspberry Pi Imager, tailored for the EVE-OS community. In addition, it can be used for general image flashing for use-cases beyond EVE-OS.
+ZFlash is a user-friendly tool for flashing [EVE-OS](https://github.com/lf-edge/eve) images to your devices. It simplifies the process of downloading, verifying, and flashing EVE-OS, getting you up and running in minutes. ZFlash is a fork of the popular Raspberry Pi Imager, tailored for the EVE-OS community. In addition, it can be used for general image flashing for use-cases beyond EVE-OS.
 
 
 ![ZFlash Main Screen](./doc/imgs/zflash-main.png)
 
 ## Features
 
-* **Effortless Image Selection**: Easily choose EVE-OS LTS images directly from our official GitHub repository.
+* **Effortless Image Selection**: Easily choose EVE-OS LTS images directly from our official [GitHub repository](https://github.com/lf-edge/eve/releases).
 * **Automatic Downloads & Verification**: ZFlash handles the entire process of downloading and verifying your selected image, ensuring integrity and saving you time.
 * **Flexible Flashing Options**: Flash various image files from your local machine, providing versatile ways to manage your EVE-OS images.
 
@@ -17,10 +17,10 @@ ZFlash is a user-friendly tool for flashing EVE-OS images to your devices. It si
 
 ### Installation
 
-ZFlash is available for **Windows**, **macOS**, and **Linux**. You can download the latest binaries from our [GitHub Releases page](https://github.com/zededa/zflash/releases).
+ZFlash is available for **Windows**, **macOS**(both Intel and Apple Silicon), and **Linux**. You can download the latest binaries from our [GitHub Releases page](https://github.com/zededa/zflash/releases).
 
 
-> **Note for macOS and Windows Users**
+> **Note for macOS and Windows Users:**
 > The macOS and Windows applications are not currently signed. This means you will need to accept security exceptions when installing and running the application for the first time.
 
 
@@ -58,7 +58,7 @@ docker run --rm -v $PWD/eve-overrides:/in --platform=linux/amd64 lfedge/eve:14.5
 docker run -v$HOME/eve-overrides:/in -v $HOME/eve-iso:/out lfedge/eve:14.5.1-lts-kvm-amd64 installer_raw
 ```
 
-Configure the cluster (server) address as appropriate and use Zflash to burn the generated image to a bootable medium.
+Configure the cluster (server) address as appropriate and use Zflash to burn the generated image to a bootable medium. Please see the [lfedge/eve](https://hub.docker.com/r/lfedge/eve/tags) dockerhub repository for all avalailable container tags.
 
 ---
 
