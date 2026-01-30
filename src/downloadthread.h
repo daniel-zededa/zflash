@@ -116,7 +116,12 @@ public:
     /*
      * Enable image customization
      */
-    void setImageCustomization(const QByteArray &config, const QByteArray &cmdline, const QByteArray &firstrun, const QByteArray &cloudinit, const QByteArray &cloudinitNetwork, const QByteArray &initFormat, const QByteArray &eveServer = "");
+    void setImageCustomization(const QByteArray &config, const QByteArray &cmdline, const QByteArray &firstrun, const QByteArray &cloudinit, const QByteArray &cloudinitNetwork, const QByteArray &initFormat);
+
+    /*
+     * Set EVE server
+     */
+    void setEveServer(const QByteArray &eveServer);
 
     /*
      * Thread safe download progress query functions

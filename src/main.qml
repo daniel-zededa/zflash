@@ -726,9 +726,7 @@ ApplicationWindow {
         id: eveserverpopup
 
         onAccepted: {
-            if (eveserverpopup.eveServer.length) {
-                window.imageWriter.setImageCustomization("", "", "", "", "", eveserverpopup.eveServer)
-            }
+            window.imageWriter.setEveServer(eveserverpopup.eveServer)
         }
     }    UseSavedSettingsPopup {
         id: usesavedsettingspopup

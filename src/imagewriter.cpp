@@ -448,7 +448,8 @@ void ImageWriter::startWrite()
     
     _thread->setVerifyEnabled(_verifyEnabled);
     _thread->setUserAgent(QString("Mozilla/5.0 zflash/%1").arg(constantVersion()).toUtf8());
-    _thread->setImageCustomization(_config, _cmdline, _firstrun, _cloudinit, _cloudinitNetwork, _initFormat, _eveServer);
+    _thread->setImageCustomization(_config, _cmdline, _firstrun, _cloudinit, _cloudinitNetwork, _initFormat);
+    _thread->setEveServer(_eveServer);
 
     // Only set up cache operations for remote downloads, not when using cached files as source
     if (!_expectedHash.isEmpty() && !QUrl(urlstr).isLocalFile())
@@ -1327,20 +1328,24 @@ void ImageWriter::setSetting(const QString &key, const QVariant &value)
     _settings.sync();
 }
 
-void ImageWriter::setImageCustomization(const QByteArray &config, const QByteArray &cmdline, const QByteArray &firstrun, const QByteArray &cloudinit, const QByteArray &cloudinitNetwork, const QByteArray &eveServer)
+void ImageWriter::setImageCustomization(const QByteArray &config, const QByteArray &cmdline, const QByteArray &firstrun, const QByteArray &cloudinit, const QByteArray &cloudinitNetwork)
 {
     _config = config;
     _cmdline = cmdline;
     _firstrun = firstrun;
     _cloudinit = cloudinit;
     _cloudinitNetwork = cloudinitNetwork;
-    _eveServer = eveServer;
 
     qDebug() << "Custom config.txt entries:" << config;
     qDebug() << "Custom cmdline.txt entries:" << cmdline;
     qDebug() << "Custom firstrun.sh:" << firstrun;
     qDebug() << "Cloudinit:" << cloudinit;
-    qDebug() << "EVE Server:" << eveServer;
+}
+
+void ImageWriter::setEveServer(const QByteArray &eveServer)
+{
+    _eveServer = eveServer;
+    qDebug() << "EVE Server:" << _eveServer;
 }
 
 QString ImageWriter::crypt(const QByteArray &password)
@@ -1657,7 +1662,8 @@ void ImageWriter::_continueStartWriteAfterCacheVerification(bool cacheIsValid)
     
     _thread->setVerifyEnabled(_verifyEnabled);
     _thread->setUserAgent(QString("Mozilla/5.0 rpi-imager/%1").arg(constantVersion()).toUtf8());
-    _thread->setImageCustomization(_config, _cmdline, _firstrun, _cloudinit, _cloudinitNetwork, _initFormat, _eveServer);
+    _thread->setImageCustomization(_config, _cmdline, _firstrun, _cloudinit, _cloudinitNetwork, _initFormat);
+    _thread->setEveServer(_eveServer);
 
     // Handle caching setup for downloads using CacheManager
     // Only set up caching when we're downloading (not using cached file as source)
