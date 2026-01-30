@@ -96,11 +96,7 @@ ImPopup {
                         fieldEveServer.forceActiveFocus()
                         return
                     }
-                    if (fieldEveServer.text !== root.eveServerDefault) {
-                        root.eveServer = fieldEveServer.text
-                    } else {
-                        root.eveServer = ""
-                    }
+                    root.eveServer = fieldEveServer.text
                 } else {
                     root.eveServer = ""
                 }
