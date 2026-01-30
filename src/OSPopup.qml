@@ -392,6 +392,9 @@ MainPopupBase {
             window.selectedOsName = d.name
             root.close()
             osswipeview.decrementCurrentIndex()
+            if (window.isRawImage(d.url)) {
+                eveserverpopup.openPopup()
+            }
             if (root.imageWriter.readyToWrite()) {
                 writebutton.enabled = true
             }

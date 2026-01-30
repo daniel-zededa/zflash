@@ -721,7 +721,16 @@ ApplicationWindow {
         }
     }
 
-    UseSavedSettingsPopup {
+
+    EveServerPopup {
+        id: eveserverpopup
+
+        onAccepted: {
+            if (eveserverpopup.eveServer.length) {
+                window.imageWriter.setImageCustomization("", "", "", "", "", eveserverpopup.eveServer)
+            }
+        }
+    }    UseSavedSettingsPopup {
         id: usesavedsettingspopup
         imageWriter: window.imageWriter
 
@@ -850,12 +859,19 @@ ApplicationWindow {
         msgpopup.open()
     }
 
-    function onFileSelected(file) {
+
+    function isRawImage(filename) {
+        var lower = filename.toLowerCase()
+        return lower.endsWith(".raw") || lower.endsWith(".raw.gz") || lower.endsWith(".raw.xz") || lower.endsWith(".raw.zst") || lower.endsWith(".raw.bz2") || lower.endsWith(".raw.zip")
+            || lower.endsWith(".img") || lower.endsWith(".img.gz") || lower.endsWith(".img.xz") || lower.endsWith(".img.zst") || lower.endsWith(".img.bz2") || lower.endsWith(".img.zip")
+    }    function onFileSelected(file) {
         imageWriter.setSrc(file)
         window.selectedOsName = imageWriter.srcFileName()
         ospopup.close()
         ospopup.osswipeview.decrementCurrentIndex()
-        if (imageWriter.readyToWrite()) {
+        if (isRawImage(imageWriter.srcFileName())) {
+            eveserverpopup.openPopup()
+        }        if (imageWriter.readyToWrite()) {
             writebutton.enabled = true
         }
     }
