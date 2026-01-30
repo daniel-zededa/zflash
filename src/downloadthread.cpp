@@ -1051,7 +1051,8 @@ bool DownloadThread::_customizeImage()
 
             for (int i=1; i <= dw.numPartitions(); i++)
             {
-                if (dw.partitionName(i) == "EVE" && dw.partitionType(i) == msDataGuid)
+                qDebug() << "Partition" << i << "name:" << dw.partitionName(i) << "type:" << dw.partitionType(i).toHex();
+                if (dw.partitionName(i) == "CONFIG" && dw.partitionType(i) == msDataGuid)
                 {
                     partNr = i;
                     break;
@@ -1060,19 +1061,12 @@ bool DownloadThread::_customizeImage()
 
             if (partNr == -1)
             {
-                throw std::runtime_error("EVE partition not found");
+                throw std::runtime_error("CONFIG partition not found");
             }
 
-            try
-            {
-                DeviceWrapperFatPartition *evePart = dw.fatPartition(partNr);
-                evePart->writeFile("server", _eveServer + "\n");
-                qDebug() << "Written EVE server file to partition" << partNr << ":" << _eveServer;
-            }
-            catch (std::runtime_error &eveErr)
-            {
-                qDebug() << "Could not write EVE server file to partition" << partNr << ":" << eveErr.what();
-            }
+            DeviceWrapperFatPartition *evePart = dw.fatPartition(partNr);
+            evePart->writeFile("server", _eveServer + "\n");
+            qDebug() << "Written EVE server file to partition" << partNr << ":" << _eveServer;
         }
 
         dw.sync();
