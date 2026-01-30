@@ -1046,15 +1046,32 @@ bool DownloadThread::_customizeImage()
 
         if (!_eveServer.isEmpty())
         {
+            int partNr = -1;
+            QByteArray msDataGuid = QByteArray::fromHex("A2A0D0EB-E5B9-3344-87C0-68B6B72699C7");
+
+            for (int i=1; i <= dw.numPartitions(); i++)
+            {
+                if (dw.partitionName(i) == "EVE" && dw.partitionType(i) == msDataGuid)
+                {
+                    partNr = i;
+                    break;
+                }
+            }
+
+            if (partNr == -1)
+            {
+                throw std::runtime_error("EVE partition not found");
+            }
+
             try
             {
-                DeviceWrapperFatPartition *evePart = dw.fatPartition(4);
+                DeviceWrapperFatPartition *evePart = dw.fatPartition(partNr);
                 evePart->writeFile("server", _eveServer + "\n");
-                qDebug() << "Written EVE server file to partition 4:" << _eveServer;
+                qDebug() << "Written EVE server file to partition" << partNr << ":" << _eveServer;
             }
             catch (std::runtime_error &eveErr)
             {
-                qDebug() << "Could not write EVE server file to partition 4:" << eveErr.what();
+                qDebug() << "Could not write EVE server file to partition" << partNr << ":" << eveErr.what();
             }
         }
 

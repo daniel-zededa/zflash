@@ -34,6 +34,9 @@ public:
     void pwrite(const char *buf, quint64 size, quint64 offset);
     void pread(char *buf, quint64 size, quint64 offset);
     DeviceWrapperFatPartition *fatPartition(int nr);
+    int numPartitions();
+    QString partitionName(int nr);
+    QByteArray partitionType(int nr);
 
 protected:
     bool _dirty;

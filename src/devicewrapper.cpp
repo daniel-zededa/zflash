@@ -190,3 +190,73 @@ DeviceWrapperFatPartition *DeviceWrapper::fatPartition(int nr)
     return new DeviceWrapperFatPartition(this, mbr.part[nr-1].starting_sector*512, mbr.part[nr-1].nr_of_sectors*512, this);
 }
 
+int DeviceWrapper::numPartitions()
+{
+    /* GPT table handling */
+    struct gpt_header gpt;
+    pread((char *) &gpt, sizeof(gpt), 512);
+
+    if (!strncmp("EFI PART", gpt.Signature, 8) && gpt.MyLBA == 1)
+    {
+        return gpt.NumberOfPartitionEntries;
+    }
+
+    /* MBR table handling */
+    return 4;
+}
+
+QString DeviceWrapper::partitionName(int nr)
+{
+    if (nr < 1)
+        return "";
+
+    /* GPT table handling */
+    struct gpt_header gpt;
+    struct gpt_partition gptpart;
+    pread((char *) &gpt, sizeof(gpt), 512);
+
+    if (!strncmp("EFI PART", gpt.Signature, 8) && gpt.MyLBA == 1)
+    {
+        if (nr > gpt.NumberOfPartitionEntries)
+            return "";
+
+        pread((char *) &gptpart, sizeof(gptpart), gpt.PartitionEntryLBA*512 + gpt.SizeOfPartitionEntry*(nr-1));
+        return QString::fromUtf16(reinterpret_cast<const char16_t *>(gptpart.PartitionName)).trimmed();
+    }
+
+    /* MBR does not have partition names */
+    return "";
+}
+
+QByteArray DeviceWrapper::partitionType(int nr)
+{
+    if (nr < 1)
+        return "";
+
+    /* GPT table handling */
+    struct gpt_header gpt;
+    struct gpt_partition gptpart;
+    pread((char *) &gpt, sizeof(gpt), 512);
+
+    if (!strncmp("EFI PART", gpt.Signature, 8) && gpt.MyLBA == 1)
+    {
+        if (nr > gpt.NumberOfPartitionEntries)
+            return "";
+
+        pread((char *) &gptpart, sizeof(gptpart), gpt.PartitionEntryLBA*512 + gpt.SizeOfPartitionEntry*(nr-1));
+        return QByteArray(reinterpret_cast<const char *>(gptpart.PartitionTypeGuid), 16);
+    }
+
+    /* MBR table handling */
+    if (nr > 4)
+        return "";
+
+    struct mbr_table mbr;
+    pread((char *) &mbr, sizeof(mbr), 0);
+
+    if (mbr.signature[0] != 0x55 || mbr.signature[1] != 0xAA)
+        return "";
+
+    return QByteArray(reinterpret_cast<const char *>(&mbr.part[nr-1].id), 1);
+}
+
