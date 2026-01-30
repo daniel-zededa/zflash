@@ -731,7 +731,7 @@ ApplicationWindow {
             confirmwritepopup.askForConfirmation()
         }
         onNo: {
-            window.imageWriter.setImageCustomization("", "", "", "", "")
+            window.imageWriter.setImageCustomization("", "", "", "", "", "")
             confirmwritepopup.askForConfirmation()
         }
         onNoClearSettings: {

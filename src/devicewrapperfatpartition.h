@@ -34,6 +34,7 @@ protected:
     QList<uint32_t> _currentDirClusters;
 
     QList<uint32_t> getClusterChain(uint32_t firstCluster);
+    void setFAT12(uint16_t cluster, uint16_t value);
     void setFAT16(uint16_t cluster, uint16_t value);
     void setFAT32(uint32_t cluster, uint32_t value);
     void setFAT(uint32_t cluster, uint32_t value);

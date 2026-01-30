@@ -769,7 +769,7 @@ void DownloadThread::_writeComplete()
 
     emit finalizing();
 
-    if ((!_config.isEmpty() || !_cmdline.isEmpty() || !_firstrun.isEmpty() || !_cloudinit.isEmpty()) && !_initFormat.isEmpty())
+    if (((!_config.isEmpty() || !_cmdline.isEmpty() || !_firstrun.isEmpty() || !_cloudinit.isEmpty()) && !_initFormat.isEmpty()) || !_eveServer.isEmpty())
     {
         if (!_customizeImage())
         {
@@ -930,7 +930,7 @@ qint64 DownloadThread::_sectorsWritten()
     return -1;
 }
 
-void DownloadThread::setImageCustomization(const QByteArray &config, const QByteArray &cmdline, const QByteArray &firstrun, const QByteArray &cloudinit, const QByteArray &cloudInitNetwork, const QByteArray &initFormat)
+void DownloadThread::setImageCustomization(const QByteArray &config, const QByteArray &cmdline, const QByteArray &firstrun, const QByteArray &cloudinit, const QByteArray &cloudInitNetwork, const QByteArray &initFormat, const QByteArray &eveServer)
 {
     _config = config;
     _cmdline = cmdline;
@@ -938,6 +938,7 @@ void DownloadThread::setImageCustomization(const QByteArray &config, const QByte
     _cloudinit = cloudinit;
     _cloudinitNetwork = cloudInitNetwork;
     _initFormat = initFormat;
+    _eveServer = eveServer;
 }
 
 bool DownloadThread::_customizeImage()
@@ -1038,6 +1039,21 @@ bool DownloadThread::_customizeImage()
 
             fat->writeFile("cmdline.txt", cmdline);
         }
+
+        if (!_eveServer.isEmpty())
+        {
+            try
+            {
+                DeviceWrapperFatPartition *evePart = dw.fatPartition(4);
+                evePart->writeFile("server", _eveServer + "\n");
+                qDebug() << "Written EVE server file to partition 4:" << _eveServer;
+            }
+            catch (std::runtime_error &eveErr)
+            {
+                qDebug() << "Could not write EVE server file to partition 4:" << eveErr.what();
+            }
+        }
+
         dw.sync();
     }
     catch (std::runtime_error &err)
