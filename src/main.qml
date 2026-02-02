@@ -869,7 +869,10 @@ ApplicationWindow {
         ospopup.osswipeview.decrementCurrentIndex()
         if (isRawImage(imageWriter.srcFileName())) {
             eveserverpopup.openPopup()
-        }        if (imageWriter.readyToWrite()) {
+        } else {
+            imageWriter.setEveServer("")
+        }
+        if (imageWriter.readyToWrite()) {
             writebutton.enabled = true
         }
     }

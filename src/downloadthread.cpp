@@ -1051,7 +1051,6 @@ bool DownloadThread::_customizeImage()
 
             for (int i=1; i <= dw.numPartitions(); i++)
             {
-                qDebug() << "Partition" << i << "name:" << dw.partitionName(i) << "type:" << dw.partitionType(i).toHex();
                 if (dw.partitionName(i) == "CONFIG" && dw.partitionType(i) == msDataGuid)
                 {
                     partNr = i;
@@ -1061,7 +1060,7 @@ bool DownloadThread::_customizeImage()
 
             if (partNr == -1)
             {
-                throw std::runtime_error("CONFIG partition not found");
+                throw std::runtime_error("Could not customize EVE server: CONFIG partition not found in image");
             }
 
             DeviceWrapperFatPartition *evePart = dw.fatPartition(partNr);
